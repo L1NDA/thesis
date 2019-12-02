@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // https://stackoverflow.com/questions/25588188/trying-to-communicate-from-default-script-to-content-script-in-chrome-extension
 
   chrome.tabs.query({currentWindow: true, active: true}, function(tabArray) {
-    console.log("making query")
     chrome.tabs.sendMessage(tabArray[0].id, {"getSwitch": true}, setBackgroundColor);
   });
 
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   function setBackgroundColor(response) {
-    console.log("in helper function")
     if (response.toggleState == true) {
       document.getElementById('button-on').setAttribute("style", "background-color:pink;")
     } else {
