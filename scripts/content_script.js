@@ -7,70 +7,24 @@ var onDefinition = false;
 
 function handleMouseUp(e) {
   if (toggleSwitch) {
+
     var t = document.getSelection ? document.getSelection().toString() :  document.selection.createRange().toString() ;
 
-    var prevAddButton = document.getElementById("add-button");
+    // check if the click was on the add button
+    if (e.path[0].id != "add-button") {
+      var prevAddButton = document.getElementById("add-button");
 
-    if (prevAddButton) {
-      prevAddButton.addEventListener("click", function() {
-        console.log("clicked")
-        tempVar = t
-
-        // https://stackoverflow.com/questions/52700090/how-to-create-multiple-elements-by-dom-in-vanilla-javascript
-        let container = document.createElement("div");
-        container.id = "var-container";
-
-        let varLine = document.createElement("div");
-        varLine.id = "var-line";
-
-        let defLine = document.createElement("div");
-        defLine.id = "def-line";
-
-        let varLabel = document.createTextNode(`Variable: `);
-        let varText = document.createTextNode(tempVar);
-
-        let defLabel = document.createTextNode(`Definition: `);
-        let defInput = document.createElement("textarea");
-        defInput.id = "def-input";
-        defInput.placeholder = `Highlight new text to autopopulate this field, or type here`
-
-        varLine.appendChild(varLabel)
-        varLine.appendChild(varText)
-        container.appendChild(varLine)
-
-        defLine.appendChild(defLabel)
-        defLine.appendChild(defInput)
-        container.appendChild(defLine)
-
-        container.setAttribute("style", "display: flex; align-items: center; justify-content: center")
-
-        container.style.top = (r.top - relative.top - 36)+'px'; //this will place ele below the selection
-        container.style.right = -(r.right - relative.right + 9)+'px'; //this will align the right edges together
-
-        console.log(container)
-        document.body.appendChild(container)
-
-        addButton.remove()
-
-        // create display for variable
-        // remove plus sign
-        // option to delete variable
-        // create highlight definition flow
-        // create edit definition flow
-        // save set to Chrome
-
-        // chrome.storage.sync.set({"switch": toggleSwitch});
-      })
+      if (prevAddButton) {
+        document.getElementById("add-button").remove();
+        onVariable = false;
+      }
     }
 
     // highlight is valid
     if (t && t.trim()) {
 
-      if (prevAddButton) {
-        document.getElementById("add-button").remove();
-      }
-
       if (!onVariable && !onDefinition) {
+
         // https://stackoverflow.com/questions/1589721/get-selected-text-position-and-place-an-element-next-to-it
         var r = window.getSelection().getRangeAt(0).getBoundingClientRect();
         var relative = document.body.parentNode.getBoundingClientRect();
@@ -78,8 +32,8 @@ function handleMouseUp(e) {
         // add button styling
         let addButton = document.createElement("div");
         addButton.setAttribute("id", "add-button")
-        addButton.setAttribute("style", "border-radius: 12px; height: 20px; width: 20px; color: white; background-color: #9CBBF2; display: flex; align-items: center; justify-content: center")
-        addButton.style.top = (r.top - relative.top - 28)+'px'; //this will place ele below the selection
+        addButton.setAttribute("style", "border-radius: 12px; height: 20px; width: 20px; color: white; background-color: #9CBBF2; display: flex; align-items: center; justify-content: center; font-size: 12px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
+        addButton.style.top = (r.top - relative.top - 16)+'px'; //this will place ele below the selection
         addButton.style.right = -(r.right - relative.right + 9)+'px'; //this will align the right edges together
         addButton.innerHTML = "+";
         addButton.style.position = "absolute";
@@ -95,7 +49,66 @@ function handleMouseUp(e) {
         });
 
         document.body.appendChild(addButton);
+
+        // add button on click
+        addButton.addEventListener("click", function() {
+
+          tempVar = t
+
+          // https://stackoverflow.com/questions/52700090/how-to-create-multiple-elements-by-dom-in-vanilla-javascript
+          let container = document.createElement("div");
+          container.id = "var-container";
+
+          let varLine = document.createElement("div");
+          varLine.id = "var-line";
+
+          let defLine = document.createElement("div");
+          defLine.id = "def-line";
+
+          let varLabel = document.createElement("b");
+          varLabel.innerHTML = "Variable: ";
+          let varText = document.createTextNode(tempVar);
+
+          let defLabel = document.createElement("b");
+          defLabel.innerHTML = "Definition:";
+          let defInput = document.createElement("textarea");
+          defInput.id = "def-input";
+          defInput.placeholder = `Highlight new text to autopopulate this field, or type here`
+
+          varLine.appendChild(varLabel)
+          varLine.appendChild(varText)
+          container.appendChild(varLine)
+
+          defLine.appendChild(defLabel)
+          defLine.appendChild(defInput)
+          container.appendChild(defLine)
+
+          container.setAttribute("style", "height: 70px; width: 300px; text-align: left; border-radius: 4px; border: 3px solid #9CBBF2; background-color: white; padding: 6px 8px; font-size: 12px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif; color: black; position: fixed; top: 4px; right: 4px; z-index: 24601")
+
+          defInput.setAttribute("style", "height: 15px; width: 215px; resize: none; outline: none; box-shadow: none; border: none; border-bottom: 1px solid #9CBBF2; margin-left: 4px; padding-bottom: 4px; text-align: left; background-color: none")
+
+          defLine.setAttribute("style", "display: flex; align-items: center")
+
+          document.body.appendChild(container)
+
+          addButton.remove()
+
+          // !create display for variable
+          // !remove plus sign
+          // option to delete variable
+
+          // https://stackoverflow.com/questions/15702867/html-tooltip-position-relative-to-mouse-pointer
+          // create highlight definition flow
+          // create edit definition flow
+          // save set to Chrome
+
+          // chrome.storage.sync.set({"switch": toggleSwitch});
+        })
+
+        onVariable = true
+
       }
+
     }
 
   }

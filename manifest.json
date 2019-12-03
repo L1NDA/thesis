@@ -24,7 +24,7 @@
     "default_popup": "popup.html",
     "default_title": "Activate thesis walrus!"
   },
-  "permissions": ["file://*/*", "activeTab", "tabs", "http://*/*", "https://*/*", "storage", "<all_urls>", "contextMenus"],
+  "permissions": ["file://*/*", "activeTab", "tabs", "http://*/*", "https://*/*", "storage", "<all_urls>"],
   "browser_action": {
     "default_icon": "./images/icon_128.png",
     "default_popup": "popup.html"
