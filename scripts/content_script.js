@@ -45,7 +45,11 @@ function saveVariable() {
   allVars[saveVar] = saveDef
 
   // remove definition and tooltip
-  document.getElementById("var-container").remove()
+  let container = document.getElementById("var-container")
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+  container.remove()
   document.getElementById('tooltip-span').innerHTML = "Saved."
   setTimeout(function(){
     document.getElementById('tooltip-span').remove()
@@ -121,38 +125,6 @@ function handleMouseUp(e) {
         popup.style.right = -(r.right - relative.right + 24)+'px'; //this will align the right edges together
         popup.style.position = "absolute";
 
-        // // empty (no vars defined)
-        // if (Object.keys(allVars).length !== 0) {
-        //
-        //   let magnify = document.createElement("div")
-        //   magnify.setAttribute("id", "magnify-button")
-        //   magnify.setAttribute("style", "border-radius: 12px; height: 20px; width: 20px; color: white; background-color: #9CBBF2; display: flex; align-items: center; justify-content: center; font-size: 12px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
-        //   magnify.innerHTML = "?";
-        //
-        //   magnify.addEventListener("click", function() {
-        //
-        //     // https://stackoverflow.com/questions/13586317/find-a-word-under-mouse-pointer-in-javascript-anywhere-in-page
-        //
-        //     // var words = t.split(" ");
-        //     //
-        //     // var fullText = "";
-        //     //
-        //     // for (i = 0; i < words.length; i++) {
-        //     //   words[i] = "<span>" + words[i] + "</span> ";
-        //     //   fullText += words[i];
-        //     // }
-        //     //
-        //     // t.append(fullText);
-        //     //
-        //     // $(this).children("span").on("hover", function(){
-        //     //   $(".second").text($(this).text());
-        //     // });
-        //
-        //   })
-        //
-        //   popup.appendChild(magnify)
-        // }
-
         // add button styling
         let addButton = document.createElement("div");
         addButton.setAttribute("id", "add-button")
@@ -201,14 +173,23 @@ function handleMouseUp(e) {
           let responseButtons = document.createElement("div");
           let deleteButton = document.createElement("button");
           deleteButton.innerHTML = "Cancel"
+
           deleteButton.addEventListener("click", function() {
-            document.getElementById("add-button").remove()
-            document.getElementById("popup-container").remove()
+            let container = document.getElementById("var-container")
+            while (container.firstChild) {
+              container.removeChild(container.firstChild);
+            }
+            container.remove()
+            document.getElementById('tooltip-span').remove()
+            onVariable = false
           })
 
           let submitButton = document.createElement("button");
           submitButton.innerHTML = "Save"
-          // responseButtons.id = "var-container";
+
+          submitButton.addEventListener("click", function() {
+            saveVariable()
+          })
 
           varLine.appendChild(varLabel)
           varLine.appendChild(varText)
