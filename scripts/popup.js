@@ -1,20 +1,13 @@
-function on() {
-  console.log("on!");
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {joke: "knock knock"}, function(response) {
-          console.log('success');
-      });
-  });
-}
-
 document.addEventListener('DOMContentLoaded', function() {
 
   // https://stackoverflow.com/questions/25588188/trying-to-communicate-from-default-script-to-content-script-in-chrome-extension
 
+  // ask whether the switch is on
   chrome.tabs.query({currentWindow: true, active: true}, function(tabArray) {
     chrome.tabs.sendMessage(tabArray[0].id, {"getSwitch": true}, setBackgroundColor);
   });
 
+  // change switch state on click
   document.getElementById('button-on').addEventListener("click",function() {
     chrome.tabs.query({currentWindow: true, active: true},function(tabArray) {
       chrome.tabs.sendMessage(tabArray[0].id,{"setSwitch": true}, setBackgroundColor);
