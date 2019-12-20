@@ -98,9 +98,6 @@ function handleMouseUp(e) {
       var prevAddButton = document.getElementById("add-button");
 
       if (prevAddButton) {
-        if (document.getElementById("magnify-button") !== null) {
-          document.getElementById("magnify-button").remove()
-        }
         document.getElementById("add-button").remove()
         document.getElementById("popup-container").remove()
         onVariable = false;
@@ -273,6 +270,13 @@ function handleMouseUp(e) {
 
     }
 
+  } else {
+    if (document.getElementById("add-button") !== null) {
+      document.getElementById("add-button").remove()
+    }
+    if (document.getElementById("popup-container") !== null) {
+      document.getElementById("popup-container").remove()
+    }
   }
 }
 
@@ -295,6 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
       } else if (request.getSwitch) {
           sendResponse({"finished": true, "toggleState": toggleSwitch});
       }
+      return true;
   });
 
   // get existing variables saved

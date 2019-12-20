@@ -4,8 +4,15 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
   <body>
-      <div>Insert text here</div>
-      <button id="button-on">Turn me on</button>
+      <div>Toggle the switch below to enable the tool.</div>
+
+      <label class="switch">
+        <input type="checkbox" id="checkbox">
+        <div class="slider-circle" id="button-on"></div>
+        <span class="slider" id="slider"></span>
+      </label>
+
+      <!-- <button id="button-on">Turn me on</button> -->
 
       <script src="scripts/popup.js"></script>
   </body>

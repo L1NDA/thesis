@@ -4,21 +4,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // ask whether the switch is on
   chrome.tabs.query({currentWindow: true, active: true}, function(tabArray) {
-    chrome.tabs.sendMessage(tabArray[0].id, {"getSwitch": true}, setBackgroundColor);
+    chrome.tabs.sendMessage(tabArray[0].id, {"getSwitch": true}, setSwitch);
   });
 
   // change switch state on click
   document.getElementById('button-on').addEventListener("click",function() {
     chrome.tabs.query({currentWindow: true, active: true},function(tabArray) {
-      chrome.tabs.sendMessage(tabArray[0].id,{"setSwitch": true}, setBackgroundColor);
+      chrome.tabs.sendMessage(tabArray[0].id,{"setSwitch": true}, setSwitch);
     });
   });
 
-  function setBackgroundColor(response) {
+  function setSwitch(response) {
     if (response.toggleState == true) {
-      document.getElementById('button-on').setAttribute("style", "background-color:pink;")
+      document.getElementById('checkbox').checked = true
+      document.getElementById('slider').setAttribute("style", "background-color: #202124;")
     } else {
-      document.getElementById('button-on').setAttribute("style", "background-color:none;")
+      document.getElementById('checkbox').checked = false
+      document.getElementById('slider').setAttribute("style", "background-color: #ccc;")
     }
   }
 
