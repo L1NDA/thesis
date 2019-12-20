@@ -169,7 +169,7 @@ function handleMouseUp(e) {
 
           let responseButtons = document.createElement("div");
           let deleteButton = document.createElement("button");
-          deleteButton.innerHTML = "Cancel"
+          deleteButton.innerHTML = "CANCEL"
 
           deleteButton.addEventListener("click", function() {
             let container = document.getElementById("var-container")
@@ -182,7 +182,7 @@ function handleMouseUp(e) {
           })
 
           let submitButton = document.createElement("button");
-          submitButton.innerHTML = "Save"
+          submitButton.innerHTML = "SAVE"
 
           submitButton.addEventListener("click", function() {
             saveVariable()
@@ -202,13 +202,17 @@ function handleMouseUp(e) {
 
           varLine.setAttribute("style", "display: flex; flex-direction: row")
 
-          container.setAttribute("style", "display: flex; flex-direction: column; align-items: space-evenly; padding: 12px 16px; justify-content: center; text-align: left; border-radius: 4px; border: 3px solid #9CBBF2; background-color: white; font-size: 12px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif; color: black; position: fixed; top: 4px; right: 4px; z-index: 24601")
+          container.setAttribute("style", "display: flex; flex-direction: column; align-items: space-evenly; padding: 28px 28px; justify-content: center; text-align: left; border-radius: 4px; border: 3px solid #9CBBF2; background-color: white; font-size: 12px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif; color: black; position: fixed; top: 4px; right: 4px; z-index: 24601")
 
-          defInput.setAttribute("style", "width: 200px; resize: none; outline: none; box-shadow: none; border: none; border-bottom: 1px solid #9CBBF2; margin-left: 4px; padding-bottom: 2px; text-align: left; background-color: none; font-size: 10px;")
+          defInput.setAttribute("style", "width: 200px; resize: none; outline: none; box-shadow: none; border: none; border-bottom: 1px solid #9CBBF2; margin-left: 4px; padding-bottom: 2px; text-align: left; background-color: none; font-size: 10px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
 
           defLine.setAttribute("style", "display: flex; align-items: center; flex-grow: 1")
 
-          responseButtons.setAttribute("style", "display: flex; align-items: center; justify-content: space-evenly; margin-top: 4px")
+          deleteButton.setAttribute("style", "border-radius: 2px; padding: 4px 10px; font-weight: bold; background-color: white; border: 1px solid #9CBBF2; color: #9CBBF2; font-size: 10px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
+
+          submitButton.setAttribute("style", "border-radius: 2px; padding: 4px 10px; font-weight: bold; background-color: #9CBBF2; border: 1px solid #9CBBF2; color: white; font-size: 10px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
+
+          responseButtons.setAttribute("style", "display: flex; align-items: center; justify-content: space-evenly; margin-top: 14px")
 
           document.body.appendChild(container)
 

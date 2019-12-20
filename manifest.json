@@ -1,7 +1,7 @@
 {
-  "name": "Thesis",
+  "name": "Variable Tracker",
   "version": "1.0",
-  "description": "Stores variables more easily",
+  "description": "Store definitions of variables as you come across them",
   "icons": {
     "128": "./images/icon_128.png",
     "128": "./images/icon_128.png",
