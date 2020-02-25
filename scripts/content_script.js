@@ -1,45 +1,24 @@
-
 // https://stackoverflow.com/questions/3731328/on-text-highlight-event
 
 var toggleSwitch = false;
-var allVars = Object()
+var allVars = Object();
 
 // looking for a variable to highlight
 var onVariable = false;
 var onDefinition = false;
 
+// Adds UI to popup to allow for view/edit of all saved variables
+
+function syncDefinitions() {
+  // Save it using the Chrome extension storage API.
+  chrome.storage.sync.set({'count': Object.keys(allVars).length});
+}
+
 // Thank you James Padolsey for solving this problem I spent 8 hours cracking!!
 
-// // https://stackoverflow.com/questions/494035/how-do-you-use-a-variable-in-a-regular-expression
-//
-// function regExQuote(str) {
-//   return str.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
-// };
-//
-// // https://stackoverflow.com/questions/34559256/how-to-replace-all-occurrences-of-a-string-in-a-html-page-using-javascript
-//
-// function walkText(node, text) {
-//
-//   // var re = new RegExp(regExQuote(text), "g");
-//   // node = node.replace(re, `<span class="check"> ${text} </span>`);
-//   // document.body.innerHTML = node
-//
-//   if (node.nodeType == 3) {
-//     var re = new RegExp(regExQuote(text), "g");
-//     node.data = node.data.replace(re, `<span class="check"> ${text} </span>`);
-//   }
-//
-//   // https://j11y.io/javascript/replacing-text-in-the-dom-solved/
-//
-//   if (node.nodeType == 1 && node.nodeName != "SCRIPT") {
-//     for (var i = 0; i < node.childNodes.length; i++) {
-//       walkText(node.childNodes[i], text);
-//     }
-//   }
-//
-// }
-
 function saveVariable() {
+  syncDefinitions()
+
   let saveVar = document.getElementById("var-text").textContent
   let saveDef = document.getElementById("def-input").value
   allVars[saveVar] = saveDef
@@ -125,16 +104,16 @@ function handleMouseUp(e) {
         // add button styling
         let addButton = document.createElement("div");
         addButton.setAttribute("id", "add-button")
-        addButton.setAttribute("style", "border-radius: 12px; margin-right: 4px; height: 20px; width: 20px; color: white; background-color: #9CBBF2; display: flex; align-items: center; justify-content: center; font-size: 12px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
+        addButton.setAttribute("style", "border-radius: 12px; margin-right: 4px; height: 20px; width: 20px; color: white; background-color: #424242; display: flex; align-items: center; justify-content: center; font-size: 12px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
         addButton.innerHTML = "+";
 
         // color change on hover
         addButton.addEventListener("mouseover", function() {
-          addButton.style.backgroundColor = "#6391EF";
+          addButton.style.backgroundColor = "black";
           addButton.style.cursor = "pointer";
         });
         addButton.addEventListener("mouseout", function() {
-          addButton.style.backgroundColor = "#9CBBF2";
+          addButton.style.backgroundColor = "#424242";
           addButton.style.cursor = "default";
         });
 
@@ -202,15 +181,15 @@ function handleMouseUp(e) {
 
           varLine.setAttribute("style", "display: flex; flex-direction: row")
 
-          container.setAttribute("style", "display: flex; flex-direction: column; align-items: space-evenly; padding: 28px 28px; justify-content: center; text-align: left; border-radius: 4px; border: 3px solid #9CBBF2; background-color: white; font-size: 12px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif; color: black; position: fixed; top: 4px; right: 4px; z-index: 24601")
+          container.setAttribute("style", "display: flex; flex-direction: column; align-items: space-evenly; padding: 28px 28px; justify-content: center; text-align: left; border-radius: 4px; border: 3px solid #424242; background-color: white; font-size: 12px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif; color: black; position: fixed; top: 4px; right: 4px; z-index: 24601")
 
-          defInput.setAttribute("style", "width: 200px; resize: none; outline: none; box-shadow: none; border: none; border-bottom: 1px solid #9CBBF2; margin-left: 4px; padding-bottom: 2px; text-align: left; background-color: none; font-size: 10px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
+          defInput.setAttribute("style", "width: 200px; resize: none; outline: none; box-shadow: none; border: none; border-bottom: 1px solid #424242; margin-left: 4px; padding-bottom: 2px; text-align: left; background-color: none; font-size: 10px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
 
           defLine.setAttribute("style", "display: flex; align-items: center; flex-grow: 1")
 
-          deleteButton.setAttribute("style", "border-radius: 2px; padding: 4px 10px; font-weight: bold; background-color: white; border: 1px solid #9CBBF2; color: #9CBBF2; font-size: 10px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
+          deleteButton.setAttribute("style", "border-radius: 2px; padding: 4px 10px; font-weight: bold; background-color: white; border: 1px solid #424242; color: #424242; font-size: 10px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
 
-          submitButton.setAttribute("style", "border-radius: 2px; padding: 4px 10px; font-weight: bold; background-color: #9CBBF2; border: 1px solid #9CBBF2; color: white; font-size: 10px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
+          submitButton.setAttribute("style", "border-radius: 2px; padding: 4px 10px; font-weight: bold; background-color: #424242; border: 1px solid #424242; color: white; font-size: 10px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;")
 
           responseButtons.setAttribute("style", "display: flex; align-items: center; justify-content: space-evenly; margin-top: 14px")
 
@@ -242,7 +221,7 @@ function handleMouseUp(e) {
               tooltipSpan.style.left = (x + 20) + 'px';
           };
 
-          tooltipSpan.setAttribute("style", "display: block; position: fixed; overflow: hidden; background-color: rgba(156, 187, 242, 1); font-size: 10px; color: white; padding: 4px 8px; border-radius: 4px")
+          tooltipSpan.setAttribute("style", "display: block; position: fixed; overflow: hidden; background-color: #424242; font-size: 10px; color: white; padding: 4px 8px; border-radius: 4px")
 
           document.body.appendChild(tooltipSpan)
 
@@ -306,14 +285,19 @@ document.addEventListener('DOMContentLoaded', function() {
       return true;
   });
 
+
+  chrome.storage.sync.set({'count': 0});
+
+  var allVars = new Object()
+
   // get existing variables saved
-  chrome.storage.sync.get('vars', function(resp) {
-      if (resp.allVars) {
-        allVars = resp.allVars
-      } else {
-        allVars = new Object()
-      }
-  });
+  // chrome.storage.sync.get('vars', function(resp) {
+  //     if (resp.allVars) {
+  //       allVars = resp.allVars
+  //     } else {
+  //       allVars = new Object()
+  //     }
+  // });
 
   // get selection
   document.addEventListener("mouseup", handleMouseUp)

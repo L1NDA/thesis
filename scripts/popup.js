@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
   // https://stackoverflow.com/questions/25588188/trying-to-communicate-from-default-script-to-content-script-in-chrome-extension
@@ -8,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // change switch state on click
-  document.getElementById('button-on').addEventListener("click",function() {
+  document.getElementById('button').addEventListener("click",function() {
     chrome.tabs.query({currentWindow: true, active: true},function(tabArray) {
       chrome.tabs.sendMessage(tabArray[0].id,{"setSwitch": true}, setSwitch);
     });
@@ -16,28 +18,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function setSwitch(response) {
     if (response.toggleState == true) {
-      document.getElementById('checkbox').checked = true
-      document.getElementById('slider').setAttribute("style", "background-color: #202124;")
+      document.getElementById('button').classList.add("button-on");
+      document.getElementById('button').innerHTML = "TOGGLE OFF";
+      document.getElementById('status').innerHTML = "(Currently: On)";
     } else {
-      document.getElementById('checkbox').checked = false
-      document.getElementById('slider').setAttribute("style", "background-color: #ccc;")
+      document.getElementById('button').classList.remove("button-on");
+      document.getElementById('button').innerHTML = "TOGGLE ON";
+      document.getElementById('status').innerHTML = "(Currently: Off)";
     }
   }
 
-  // listener for toggling button
-  // var button = document.getElementById('button-on');
-  // button.addEventListener('click', function () {
-  //   console.log("clicked")
-  //   toggleSwitch = !toggleSwitch
-  //
-  //   chrome.storage.sync.set({ switch: toggleSwitch }, function() {
-  //     // actions to do if extension is toggled
-  //     if (toggleSwitch == true) {
-  //       console.log("switch on")
-  //       button.setAttribute("style", "background-color:pink;")
-  //     }
-  //   });
-  // });
+
+
 });
 
 // https://stackoverflow.com/questions/25588188/trying-to-communicate-from-default-script-to-content-script-in-chrome-extension

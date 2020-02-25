@@ -1,7 +1,7 @@
 {
   "name": "Variable Tracker",
   "version": "1.0",
-  "description": "Store definitions of variables as you come across them",
+  "description": "Keep track of definitions you encounter",
   "icons": {
     "128": "./images/icon_128.png",
     "128": "./images/icon_128.png",
@@ -24,10 +24,11 @@
     "default_popup": "popup.html",
     "default_title": "Activate thesis walrus!"
   },
-  "permissions": ["file://*/*", "activeTab", "tabs", "http://*/*", "https://*/*", "storage", "<all_urls>"],
+  "permissions": ["activeTab", "storage"],
   "browser_action": {
     "default_icon": "./images/icon_128.png",
     "default_popup": "popup.html"
   },
-  "manifest_version": 2
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://cdn.firebase.com https://*.firebaseio.com https://*.firebaseio.com; object-src 'self'; "
 }
